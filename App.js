@@ -1,34 +1,94 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>Welcome to MyBank</Text>
-        <Text style={styles.subtitle}>Your finances at your fingertips</Text>
+        <Text style={styles.time}>11:11</Text>
+        <View style={styles.headerRow}>
+          <Text style={styles.greeting}>Good morning Bob</Text>
+          <View style={styles.icons}>
+            <View style={styles.notificationBadge}>
+              <Text style={styles.notificationText}>44</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tabBar}>
+          <TouchableOpacity style={styles.tabButton}>
+            <Text style={styles.tabText}>Summary</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.tabButton, styles.activeTab]}>
+            <Text style={[styles.tabText, styles.activeTabText]}>Everyday</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabButton}>
+            <Text style={styles.tabText}>Save & Invest</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
+      {/* Main Content */}
       <ScrollView style={styles.mainContent}>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Account Balance</Text>
-          <Text style={styles.balance}>$5,280.50</Text>
+        <Text style={styles.sectionTitle}>Current accounts</Text>
+
+        {/* Account Cards */}
+        <View style={styles.accountCard}>
+          <Text style={styles.accountName}>Classic</Text>
+          <Text style={styles.accountNumber}>12-34-56 / 12345678</Text>
+          <Text style={styles.balance}>£5,000.50</Text>
+          <View style={styles.cardButtons}>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Pay & transfer</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Regular payments</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Recent Transactions</Text>
-          <Text style={styles.transaction}>- Coffee Shop: $4.50</Text>
-          <Text style={styles.transaction}>- Supermarket: $65.20</Text>
-          <Text style={styles.transaction}>- Online Shopping: $120.00</Text>
+
+        <View style={styles.accountCard}>
+          <Text style={styles.accountName}>Classic</Text>
+          <Text style={styles.accountNumber}>12-34-56 / 12345678</Text>
+          <Text style={styles.balance}>£512.64</Text>
+          <View style={styles.cardButtons}>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Pay & transfer</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cardButton}>
+              <Text style={styles.cardButtonText}>Regular payments</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Transfer Money</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Pay Bills</Text>
-          </TouchableOpacity>
+
+        {/* Info Section */}
+        <View style={styles.infoCard}>
+          <Image source={require('./coins.png')} style={styles.infoImage} />
+          <Text style={styles.infoTitle}>Your money - past, present and future</Text>
+          <Text style={styles.infoText}>
+            Plan ahead for upcoming bills and spot spending trends to keep your balance on track.
+          </Text>
         </View>
       </ScrollView>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navText}>Apply</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navText}>Payments</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navText}>Search</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navText}>Cards</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -39,24 +99,71 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   header: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 20,
-    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  subtitle: {
+  time: {
     fontSize: 16,
-    color: '#e0e0e0',
-    marginTop: 5,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  greeting: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  icons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  notificationBadge: {
+    backgroundColor: '#FF0000',
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 2,
+    marginLeft: 10,
+  },
+  notificationText: {
+    color: '#fff',
+    fontSize: 12,
+  },
+  tabBar: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderRadius: 20,
+    backgroundColor: '#f0f0f0',
+    marginHorizontal: 5,
+  },
+  activeTab: {
+    backgroundColor: '#4CAF50',
+  },
+  tabText: {
+    fontSize: 14,
+  },
+  activeTabText: {
+    color: '#fff',
   },
   mainContent: {
     padding: 15,
   },
-  card: {
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  accountCard: {
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
@@ -67,34 +174,71 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 2,
   },
-  cardTitle: {
-    fontSize: 18,
+  accountName: {
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
+  },
+  accountNumber: {
+    fontSize: 14,
+    color: '#666',
+    marginVertical: 5,
   },
   balance: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#4CAF50',
+    marginBottom: 15,
   },
-  transaction: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  buttons: {
+  cardButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
-  button: {
+  cardButton: {
     backgroundColor: '#4CAF50',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
   },
-  buttonText: {
-    fontSize: 16,
+  cardButtonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
+  infoCard: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  infoImage: {
+    width: 50,
+    height: 50,
+    marginBottom: 10,
+  },
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  infoText: {
+    textAlign: 'center',
+    color: '#666',
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    paddingVertical: 10,
+    justifyContent: 'space-around',
+  },
+  navItem: {
+    alignItems: 'center',
+  },
+  navText: {
+    fontSize: 14,
+    color: '#333',
+  },
 });
+
 
