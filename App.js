@@ -21,7 +21,7 @@ export default function App() {
             </View>
             {/* Top-right button */}
             <TouchableOpacity style={styles.colorToggleButton} onPress={handleColorChange}>
-              <Text style={styles.colorToggleText}>Toggle Color</Text>
+              <Text style={styles.colorToggleText}>Guidance Mode</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -68,7 +68,7 @@ export default function App() {
         {/* Second Account Card */}
         <View style={styles.accountCard}>
           <Text style={styles.accountName}>Classic</Text>
-          <Text style={styles.accountNumber}>12-34-56 / 12345678</Text>
+          <Text style={styles.accountNumber}>12-34-56 / 12345679</Text>
           <Text style={styles.balance}>£512.64</Text>
           <View style={styles.cardButtons}>
             <TouchableOpacity style={[styles.cardButton, { backgroundColor: '#4CAF50' }]}>
