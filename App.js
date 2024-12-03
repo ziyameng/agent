@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 export default function App() {
+  const [highlightFirstPayTransfer, setHighlightFirstPayTransfer] = useState(false);
+
+  const handleColorChange = () => {
+    setHighlightFirstPayTransfer((prevState) => !prevState); // Toggle highlighting the first "Pay & Transfer" button
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -13,6 +19,10 @@ export default function App() {
             <View style={styles.notificationBadge}>
               <Text style={styles.notificationText}>44</Text>
             </View>
+            {/* Top-right button */}
+            <TouchableOpacity style={styles.colorToggleButton} onPress={handleColorChange}>
+              <Text style={styles.colorToggleText}>Toggle Color</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.tabBar}>
@@ -32,30 +42,39 @@ export default function App() {
       <ScrollView style={styles.mainContent}>
         <Text style={styles.sectionTitle}>Current accounts</Text>
 
-        {/* Account Cards */}
+        {/* First Account Card */}
         <View style={styles.accountCard}>
           <Text style={styles.accountName}>Classic</Text>
           <Text style={styles.accountNumber}>12-34-56 / 12345678</Text>
           <Text style={styles.balance}>£5,000.50</Text>
           <View style={styles.cardButtons}>
-            <TouchableOpacity style={styles.cardButton}>
+            {/* Highlight this button when toggled */}
+            <TouchableOpacity
+              style={[
+                styles.cardButton,
+                {
+                  backgroundColor: highlightFirstPayTransfer ? '#FF0000' : '#4CAF50',
+                },
+              ]}
+            >
               <Text style={styles.cardButtonText}>Pay & transfer</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cardButton}>
+            <TouchableOpacity style={[styles.cardButton, { backgroundColor: '#4CAF50' }]}>
               <Text style={styles.cardButtonText}>Regular payments</Text>
             </TouchableOpacity>
           </View>
         </View>
 
+        {/* Second Account Card */}
         <View style={styles.accountCard}>
           <Text style={styles.accountName}>Classic</Text>
           <Text style={styles.accountNumber}>12-34-56 / 12345678</Text>
           <Text style={styles.balance}>£512.64</Text>
           <View style={styles.cardButtons}>
-            <TouchableOpacity style={styles.cardButton}>
+            <TouchableOpacity style={[styles.cardButton, { backgroundColor: '#4CAF50' }]}>
               <Text style={styles.cardButtonText}>Pay & transfer</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cardButton}>
+            <TouchableOpacity style={[styles.cardButton, { backgroundColor: '#4CAF50' }]}>
               <Text style={styles.cardButtonText}>Regular payments</Text>
             </TouchableOpacity>
           </View>
@@ -134,6 +153,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
   },
+  colorToggleButton: {
+    backgroundColor: '#4CAF50',
+    padding: 8,
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  colorToggleText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
   tabBar: {
     flexDirection: 'row',
     marginTop: 10,
@@ -194,7 +223,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   cardButton: {
-    backgroundColor: '#4CAF50',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -240,5 +268,3 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
-
-
